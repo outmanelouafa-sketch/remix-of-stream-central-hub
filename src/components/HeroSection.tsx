@@ -137,7 +137,7 @@ const HeroSection = () => {
       </div>
 
       {/* Slide indicators + labels */}
-      <div className="absolute bottom-10 right-8 z-20 flex flex-col items-end gap-2">
+      <div className="absolute bottom-28 right-8 z-20 flex flex-col items-end gap-2">
         {slides.map((slide, idx) => (
           <button
             key={idx}
