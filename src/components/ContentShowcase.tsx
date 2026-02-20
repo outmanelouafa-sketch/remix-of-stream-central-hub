@@ -75,8 +75,8 @@ const ContentShowcase = () => {
               Content Library
             </p>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground">
-              Trending Shows &
-              <span className="text-gradient-red"> Top Series</span>
+              Stream Full Season &
+              <span className="text-gradient-red"> Featured Shows</span>
             </h2>
           </div>
           <div className="flex items-center gap-2 text-muted-foreground text-sm">
