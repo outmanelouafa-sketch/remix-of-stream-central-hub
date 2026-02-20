@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Star, TrendingUp, Loader2 } from "lucide-react";
+import contentBgVideo from "@/assets/content-bg.mp4";
 
 interface Movie {
   id: number;
@@ -105,8 +106,22 @@ const ContentShowcase = () => {
   const displayContent = movies.length > 0 ? movies : FALLBACK_CONTENT;
 
   return (
-    <section id="content" className="py-20 section-dark">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="content" className="py-20 relative overflow-hidden">
+      {/* Video background */}
+      <div className="absolute inset-0 z-0">
+        <video
+          src={contentBgVideo}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover opacity-20"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-transparent to-background/60" />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-12 gap-4">
           <div>
