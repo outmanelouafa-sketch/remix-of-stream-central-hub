@@ -1,16 +1,77 @@
 import { Link } from "react-router-dom";
 import { Play, ChevronRight } from "lucide-react";
+import { useState, useEffect } from "react";
 import heroBg from "@/assets/hero-bg.jpg";
+import heroF1 from "@/assets/hero-f1.jpg";
+import heroFootball from "@/assets/hero-football.jpg";
+import heroBasketball from "@/assets/hero-basketball.jpg";
+import heroMma from "@/assets/hero-mma.jpg";
+
+const slides = [
+  { src: heroBg, label: "🎬 Movies & Series" },
+  { src: heroF1, label: "🏎️ Formula 1" },
+  { src: heroFootball, label: "⚽ Football" },
+  { src: heroBasketball, label: "🏀 Basketball" },
+  { src: heroMma, label: "🥊 UFC / MMA" },
+];
 
 const HeroSection = () => {
+  const [current, setCurrent] = useState(0);
+  const [prev, setPrev] = useState<number | null>(null);
+  const [fading, setFading] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPrev(current);
+      setFading(true);
+      setTimeout(() => {
+        setCurrent((c) => (c + 1) % slides.length);
+        setFading(false);
+        setPrev(null);
+      }, 1000); // crossfade duration
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [current]);
+
+  const goTo = (idx: number) => {
+    if (idx === current) return;
+    setPrev(current);
+    setFading(true);
+    setTimeout(() => {
+      setCurrent(idx);
+      setFading(false);
+      setPrev(null);
+    }, 1000);
+  };
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background image */}
+      {/* Background slideshow */}
       <div className="absolute inset-0">
+        {/* Previous slide (fading out) */}
+        {prev !== null && (
+          <img
+            key={`prev-${prev}`}
+            src={slides[prev].src}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover object-center"
+            style={{ opacity: fading ? 0 : 1, transition: "opacity 1s ease-in-out" }}
+          />
+        )}
+        {/* Current slide (fading in) */}
         <img
-          src={heroBg}
-          alt="IPTV Streaming Background"
-          className="w-full h-full object-cover object-center"
+          key={`curr-${current}`}
+          src={slides[current].src}
+          alt={slides[current].label}
+          className="absolute inset-0 w-full h-full object-cover object-center"
+          style={{
+            opacity: fading ? 0 : 1,
+            transition: "opacity 1s ease-in-out",
+            transform: fading ? "scale(1.03)" : "scale(1)",
+            transitionProperty: "opacity, transform",
+            transitionDuration: "1s",
+            transitionTimingFunction: "ease-in-out",
+          }}
           loading="eager"
         />
         <div className="absolute inset-0 overlay-hero" />
@@ -73,6 +134,34 @@ const HeroSection = () => {
             </a>
           </div>
         </div>
+      </div>
+
+      {/* Slide indicators + labels */}
+      <div className="absolute bottom-10 right-8 z-20 flex flex-col items-end gap-2">
+        {slides.map((slide, idx) => (
+          <button
+            key={idx}
+            onClick={() => goTo(idx)}
+            className={`flex items-center gap-2 group transition-all duration-300 ${
+              idx === current ? "opacity-100" : "opacity-40 hover:opacity-70"
+            }`}
+          >
+            <span
+              className={`text-xs font-medium text-foreground transition-all duration-300 ${
+                idx === current ? "block" : "hidden group-hover:block"
+              }`}
+            >
+              {slide.label}
+            </span>
+            <span
+              className={`block rounded-full transition-all duration-500 ${
+                idx === current
+                  ? "w-8 h-2 bg-primary"
+                  : "w-2 h-2 bg-foreground/50"
+              }`}
+            />
+          </button>
+        ))}
       </div>
 
       {/* Scroll indicator */}
