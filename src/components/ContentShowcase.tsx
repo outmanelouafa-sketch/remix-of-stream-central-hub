@@ -21,12 +21,47 @@ const ContentShowcase = () => {
   useEffect(() => {
     const fetchShows = async () => {
       try {
-        const response = await fetch("https://api.tvmaze.com/shows?page=0");
-        if (!response.ok) throw new Error("Failed");
-        const data: TVShow[] = await response.json();
-        // Filter only shows with images, pick first 30
-        const withImages = data.filter((s) => s.image?.original).slice(0, 30);
-        setShows(withImages);
+        // Fetch multiple pages of newer shows (pages 5-7 contain 2018-2024 content)
+        const [res1, res2, res3] = await Promise.all([
+          fetch("https://api.tvmaze.com/shows?page=5"),
+          fetch("https://api.tvmaze.com/shows?page=6"),
+          fetch("https://api.tvmaze.com/shows?page=7"),
+        ]);
+        const [data1, data2, data3]: TVShow[][] = await Promise.all([
+          res1.json(),
+          res2.json(),
+          res3.json(),
+        ]);
+
+        const all = [...data1, ...data2, ...data3];
+
+        // Filter shows premiered 2020+, with images and ratings, sort by rating desc
+        const recent = all
+          .filter(
+            (s) =>
+              s.image?.original &&
+              s.premiered &&
+              parseInt(s.premiered.slice(0, 4)) >= 2020 &&
+              s.rating?.average
+          )
+          .sort((a, b) => (b.rating.average ?? 0) - (a.rating.average ?? 0))
+          .slice(0, 30);
+
+        // Fallback: loosen to 2018+ if not enough
+        if (recent.length < 10) {
+          const fallback = all
+            .filter(
+              (s) =>
+                s.image?.original &&
+                s.premiered &&
+                parseInt(s.premiered.slice(0, 4)) >= 2018
+            )
+            .sort((a, b) => (b.rating.average ?? 0) - (a.rating.average ?? 0))
+            .slice(0, 30);
+          setShows(fallback);
+        } else {
+          setShows(recent);
+        }
       } catch {
         setShows([]);
       } finally {
