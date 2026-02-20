@@ -21,47 +21,28 @@ const ContentShowcase = () => {
   useEffect(() => {
     const fetchShows = async () => {
       try {
-        // Fetch multiple pages of newer shows (pages 5-7 contain 2018-2024 content)
+        // Pages 10-12 contain shows from ~2020-2024
         const [res1, res2, res3] = await Promise.all([
-          fetch("https://api.tvmaze.com/shows?page=5"),
-          fetch("https://api.tvmaze.com/shows?page=6"),
-          fetch("https://api.tvmaze.com/shows?page=7"),
-        ]);
-        const [data1, data2, data3]: TVShow[][] = await Promise.all([
-          res1.json(),
-          res2.json(),
-          res3.json(),
+          fetch("https://api.tvmaze.com/shows?page=10"),
+          fetch("https://api.tvmaze.com/shows?page=11"),
+          fetch("https://api.tvmaze.com/shows?page=12"),
         ]);
 
-        const all = [...data1, ...data2, ...data3];
+        const pages: TVShow[][] = await Promise.all([
+          res1.ok ? res1.json() : Promise.resolve([]),
+          res2.ok ? res2.json() : Promise.resolve([]),
+          res3.ok ? res3.json() : Promise.resolve([]),
+        ]);
 
-        // Filter shows premiered 2020+, with images and ratings, sort by rating desc
-        const recent = all
-          .filter(
-            (s) =>
-              s.image?.original &&
-              s.premiered &&
-              parseInt(s.premiered.slice(0, 4)) >= 2020 &&
-              s.rating?.average
-          )
+        const all = pages.flat();
+
+        // Pick shows with images, sort by rating descending
+        const sorted = all
+          .filter((s) => s.image?.original)
           .sort((a, b) => (b.rating.average ?? 0) - (a.rating.average ?? 0))
           .slice(0, 30);
 
-        // Fallback: loosen to 2018+ if not enough
-        if (recent.length < 10) {
-          const fallback = all
-            .filter(
-              (s) =>
-                s.image?.original &&
-                s.premiered &&
-                parseInt(s.premiered.slice(0, 4)) >= 2018
-            )
-            .sort((a, b) => (b.rating.average ?? 0) - (a.rating.average ?? 0))
-            .slice(0, 30);
-          setShows(fallback);
-        } else {
-          setShows(recent);
-        }
+        setShows(sorted);
       } catch {
         setShows([]);
       } finally {
@@ -70,6 +51,8 @@ const ContentShowcase = () => {
     };
     fetchShows();
   }, []);
+
+
 
   // Auto-scroll animation
   useEffect(() => {
