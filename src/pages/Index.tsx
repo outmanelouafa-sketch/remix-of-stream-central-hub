@@ -15,8 +15,8 @@ const Index = () => {
       <main>
         <HeroSection />
         <StreamingPartners />
-        <WhyChooseUs />
         <ContentShowcase />
+        <WhyChooseUs />
         <PricingSection />
         <ContactSection />
         <NewsletterSection />
