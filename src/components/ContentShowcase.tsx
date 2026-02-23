@@ -151,13 +151,7 @@ const ContentShowcase = () => {
                   </div>
                 )}
 
-                {/* Hover overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3">
-                  <button className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground rounded-lg py-2 text-xs font-bold hover:bg-primary/90 transition-colors">
-                    <Play className="w-3 h-3 fill-current" />
-                    Watch Now
-                  </button>
-                </div>
+
 
                 {/* Rating badge */}
                 {show.rating?.average && (
@@ -184,20 +178,7 @@ const ContentShowcase = () => {
         </div>
       )}
 
-      {/* CTA */}
-      <div className="text-center mt-12 px-4">
-        <p className="text-muted-foreground mb-4">
-          Access over{" "}
-          <span className="text-foreground font-semibold">100,000+</span> titles
-          in our complete VOD library
-        </p>
-        <a
-          href="#pricing"
-          className="btn-cta inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold"
-        >
-          Start Streaming Today
-        </a>
-      </div>
+
     </section>
   );
 };

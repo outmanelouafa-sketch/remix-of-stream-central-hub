@@ -156,20 +156,7 @@ const SportsShowcase = () => {
         </div>
       )}
 
-      {/* CTA */}
-      <div className="text-center mt-12 px-4">
-        <p className="text-muted-foreground mb-4">
-          Access over{" "}
-          <span className="text-foreground font-semibold">500+</span> sports channels
-          in our complete sports library
-        </p>
-        <a
-          href="#pricing"
-          className="btn-cta inline-flex items-center gap-2 px-8 py-4 rounded-xl font-semibold"
-        >
-          Start Watching Sports
-        </a>
-      </div>
+
     </section>
   );
 };
