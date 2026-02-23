@@ -4,6 +4,7 @@ import StreamingPartners from "@/components/StreamingPartners";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import PricingSection from "@/components/PricingSection";
 import ContentShowcase from "@/components/ContentShowcase";
+import SportsShowcase from "@/components/SportsShowcase";
 import ContactSection from "@/components/ContactSection";
 import FAQSection from "@/components/FAQSection";
 import NewsletterSection from "@/components/NewsletterSection";
@@ -17,10 +18,11 @@ const Index = () => {
         <HeroSection />
         <StreamingPartners />
         <ContentShowcase />
+        <SportsShowcase />
         <WhyChooseUs />
         <PricingSection />
-        <ContactSection />
         <FAQSection />
+        <ContactSection />
         <NewsletterSection />
       </main>
       <Footer />

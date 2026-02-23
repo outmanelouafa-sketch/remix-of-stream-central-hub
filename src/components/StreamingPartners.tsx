@@ -1,16 +1,16 @@
 const partners = [
-  { name: "ESPN", logo: "ESPN", hoverColor: "#FF0000", hoverBg: "rgba(255,0,0,0.12)" },
-  { name: "DAZN", logo: "DAZN", hoverColor: "#00E5FF", hoverBg: "rgba(0,229,255,0.10)" },
-  { name: "SKY Sports", logo: "SKY Sports", prefix: "SKY", hoverColor: "#00A6E0", hoverBg: "rgba(0,166,224,0.12)" },
-  { name: "beIN Sports", logo: "beIN Sports", hoverColor: "#8B0000", hoverBg: "rgba(139,0,0,0.15)" },
-  { name: "HBO Max", logo: "HBOmax", hoverColor: "#B537F2", hoverBg: "rgba(181,55,242,0.12)" },
-  { name: "Disney+", logo: "Disney+", hoverColor: "#1A78C2", hoverBg: "rgba(26,120,194,0.12)" },
-  { name: "Prime Video", logo: "prime video", hoverColor: "#00A8E1", hoverBg: "rgba(0,168,225,0.10)" },
-  { name: "Hulu", logo: "hulu", hoverColor: "#1CE783", hoverBg: "rgba(28,231,131,0.10)" },
-  { name: "Apple TV+", logo: "Apple TV+", hoverColor: "#FFFFFF", hoverBg: "rgba(255,255,255,0.08)" },
-  { name: "Netflix", logo: "NETFLIX", hoverColor: "#E50914", hoverBg: "rgba(229,9,20,0.15)" },
-  { name: "Fox Sports", logo: "FOX Sports", hoverColor: "#0072CE", hoverBg: "rgba(0,114,206,0.12)" },
-  { name: "BBC", logo: "BBC", hoverColor: "#BB1919", hoverBg: "rgba(187,25,25,0.12)" },
+  { name: "ESPN", domain: "espn.com", hoverColor: "#FF0000", hoverBg: "rgba(255,0,0,0.12)" },
+  { name: "DAZN", domain: "dazn.com", hoverColor: "#00E5FF", hoverBg: "rgba(0,229,255,0.10)" },
+  { name: "SKY Sports", domain: "skysports.com", hoverColor: "#00A6E0", hoverBg: "rgba(0,166,224,0.12)" },
+  { name: "beIN Sports", domain: "beinsports.com", hoverColor: "#8B0000", hoverBg: "rgba(139,0,0,0.15)" },
+  { name: "HBO Max", domain: "hbomax.com", hoverColor: "#B537F2", hoverBg: "rgba(181,55,242,0.12)" },
+  { name: "Disney+", domain: "disneyplus.com", hoverColor: "#1A78C2", hoverBg: "rgba(26,120,194,0.12)" },
+  { name: "Prime Video", domain: "primevideo.com", hoverColor: "#00A8E1", hoverBg: "rgba(0,168,225,0.10)" },
+  { name: "Hulu", domain: "hulu.com", hoverColor: "#1CE783", hoverBg: "rgba(28,231,131,0.10)" },
+  { name: "Apple TV+", domain: "tv.apple.com", hoverColor: "#FFFFFF", hoverBg: "rgba(255,255,255,0.08)" },
+  { name: "Netflix", domain: "netflix.com", hoverColor: "#E50914", hoverBg: "rgba(229,9,20,0.15)" },
+  { name: "Fox Sports", domain: "foxsports.com", hoverColor: "#0072CE", hoverBg: "rgba(0,114,206,0.12)" },
+  { name: "BBC", domain: "bbc.com", hoverColor: "#BB1919", hoverBg: "rgba(187,25,25,0.12)" },
 ];
 
 const allPartners = [...partners, ...partners];
@@ -54,16 +54,19 @@ const StreamingPartners = () => {
                 if (span) span.style.color = "";
               }}
             >
-              {partner.prefix ? (
-                <span className="logo-text font-bold text-white text-base transition-colors duration-300 flex items-center gap-1">
-                  <span className="bg-white text-black px-1.5 py-0.5 rounded text-xs font-black">{partner.prefix}</span>
-                  Sports
-                </span>
-              ) : (
-                <span className="logo-text font-black text-muted-foreground text-lg transition-colors duration-300">
-                  {partner.logo}
-                </span>
-              )}
+              <img 
+                src={`https://logo.clearbit.com/${partner.domain}`} 
+                alt={partner.name}
+                className="h-8 object-contain transition-all duration-300 filter group-hover/card:brightness-110"
+                onError={(e) => {
+                  // Fallback to text if image fails to load
+                  const img = e.target as HTMLImageElement;
+                  const parent = img.parentElement;
+                  if (parent) {
+                    parent.innerHTML = `<span class="font-black text-muted-foreground text-lg">${partner.name}</span>`;
+                  }
+                }}
+              />
             </div>
           ))}
         </div>

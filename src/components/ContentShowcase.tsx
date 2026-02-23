@@ -21,29 +21,38 @@ const ContentShowcase = () => {
   useEffect(() => {
     const fetchShows = async () => {
       try {
-        // Pages 10-12 contain shows from ~2020-2024
-        const [res1, res2, res3] = await Promise.all([
-          fetch("https://api.tvmaze.com/shows?page=10"),
-          fetch("https://api.tvmaze.com/shows?page=11"),
-          fetch("https://api.tvmaze.com/shows?page=12"),
-        ]);
+        // Fetch trending TV shows from TMDB
+        const response = await fetch(
+          "https://api.themoviedb.org/3/trending/tv/week?api_key=c2db120199f1c712d84be0fa01957fe9"
+        );
 
-        const pages: TVShow[][] = await Promise.all([
-          res1.ok ? res1.json() : Promise.resolve([]),
-          res2.ok ? res2.json() : Promise.resolve([]),
-          res3.ok ? res3.json() : Promise.resolve([]),
-        ]);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
-        const all = pages.flat();
-
-        // Pick shows with images, sort by rating descending
-        const sorted = all
-          .filter((s) => s.image?.original)
-          .sort((a, b) => (b.rating.average ?? 0) - (a.rating.average ?? 0))
+        const data = await response.json();
+        console.log("TMDB API Response:", data);
+        
+        // Transform TMDB data to match our TVShow interface
+        const trendingShows: TVShow[] = data.results
+          .filter((show: any) => show.poster_path && show.name)
+          .map((show: any) => ({
+            id: show.id,
+            name: show.name,
+            image: {
+              medium: `https://image.tmdb.org/t/p/w342${show.poster_path}`,
+              original: `https://image.tmdb.org/t/p/original${show.poster_path}`
+            },
+            rating: { average: show.vote_average || null },
+            genres: show.genre_ids || [],
+            premiered: show.first_air_date || null,
+            summary: show.overview || null
+          }))
           .slice(0, 30);
 
-        setShows(sorted);
-      } catch {
+        setShows(trendingShows);
+      } catch (error) {
+        console.error("Error fetching trending shows:", error);
         setShows([]);
       } finally {
         setLoading(false);
