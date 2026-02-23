@@ -18,23 +18,23 @@ const sportChannels = [
   { 
     id: 1, 
     name: "Football", 
-    category: "Football", 
+    category: "Premier League · La Liga · UCL", 
     quality: "4K", 
     country: "🌍 Global", 
     image: heroFootball 
   },
   { 
     id: 2, 
-    name: "Motorsport", 
-    category: "Motorsport", 
-    quality: "HD", 
+    name: "Formula 1", 
+    category: "F1 · MotoGP · NASCAR", 
+    quality: "4K", 
     country: "🌍 Global", 
     image: heroF1 
   },
   { 
     id: 3, 
-    name: "Fighting", 
-    category: "Combat Sports", 
+    name: "UFC / MMA", 
+    category: "UFC · Bellator · Boxing", 
     quality: "HD", 
     country: "🌍 Global", 
     image: heroMMA 
@@ -42,42 +42,10 @@ const sportChannels = [
   { 
     id: 4, 
     name: "Basketball", 
-    category: "Basketball", 
-    quality: "HD", 
-    country: "🌍 Global", 
-    image: heroBasketball 
-  },
-  { 
-    id: 5, 
-    name: "Wrestling", 
-    category: "Wrestling", 
-    quality: "HD", 
-    country: "🌍 Global", 
-    image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=600&fit=crop&crop=center&q=80" 
-  },
-  { 
-    id: 6, 
-    name: "American Football", 
-    category: "Football", 
-    quality: "HD", 
-    country: "🇺🇸 USA", 
-    image: "https://images.unsplash.com/photo-1573514971745-789c3554104f?w=400&h=600&fit=crop&crop=center&q=80" 
-  },
-  { 
-    id: 7, 
-    name: "Hockey", 
-    category: "Hockey", 
-    quality: "HD", 
-    country: "🌍 Global", 
-    image: "https://images.unsplash.com/photo-1573514971745-789c3554104f?w=400&h=600&fit=crop&crop=center&q=80" 
-  },
-  { 
-    id: 8, 
-    name: "Olympics", 
-    category: "Multi-Sport", 
+    category: "NBA · EuroLeague · FIBA", 
     quality: "4K", 
     country: "🌍 Global", 
-    image: "https://images.unsplash.com/photo-1573514971745-789c3554104f?w=400&h=600&fit=crop&crop=center&q=80" 
+    image: heroBasketball 
   },
 ];
 
