@@ -4,6 +4,12 @@ import heroFootball from "../assets/hero-football.jpg";
 import heroF1 from "../assets/hero-f1.jpg";
 import heroMMA from "../assets/hero-mma.jpg";
 import heroBasketball from "../assets/hero-basketball.jpg";
+import heroUCL from "../assets/hero-ucl.jpg";
+import heroNBA from "../assets/hero-nba.jpg";
+import heroEuro from "../assets/hero-euro.jpg";
+import heroPremier from "../assets/hero-premier.jpg";
+import heroTennis from "../assets/hero-tennis.jpg";
+import heroBoxing from "../assets/hero-boxing.jpg";
 
 interface SportChannel {
   id: number;
@@ -15,38 +21,16 @@ interface SportChannel {
 }
 
 const sportChannels = [
-  { 
-    id: 1, 
-    name: "Football", 
-    category: "Premier League · La Liga · UCL", 
-    quality: "4K", 
-    country: "🌍 Global", 
-    image: heroFootball 
-  },
-  { 
-    id: 2, 
-    name: "Formula 1", 
-    category: "F1 · MotoGP · NASCAR", 
-    quality: "4K", 
-    country: "🌍 Global", 
-    image: heroF1 
-  },
-  { 
-    id: 3, 
-    name: "UFC / MMA", 
-    category: "UFC · Bellator · Boxing", 
-    quality: "HD", 
-    country: "🌍 Global", 
-    image: heroMMA 
-  },
-  { 
-    id: 4, 
-    name: "Basketball", 
-    category: "NBA · EuroLeague · FIBA", 
-    quality: "4K", 
-    country: "🌍 Global", 
-    image: heroBasketball 
-  },
+  { id: 1, name: "Football", category: "All Leagues · Live Matches", quality: "4K", country: "🌍 Global", image: heroFootball },
+  { id: 2, name: "Champions League", category: "UEFA · Europe's Best", quality: "4K", country: "🇪🇺 Europe", image: heroUCL },
+  { id: 3, name: "Premier League", category: "English Football · Top Tier", quality: "4K", country: "🇬🇧 UK", image: heroPremier },
+  { id: 4, name: "Euro Cup", category: "UEFA Euro · Nations", quality: "4K", country: "🇪🇺 Europe", image: heroEuro },
+  { id: 5, name: "Formula 1", category: "F1 · MotoGP · NASCAR", quality: "4K", country: "🌍 Global", image: heroF1 },
+  { id: 6, name: "NBA", category: "Basketball · All-Star · Playoffs", quality: "4K", country: "🇺🇸 USA", image: heroNBA },
+  { id: 7, name: "Basketball", category: "EuroLeague · FIBA · World Cup", quality: "4K", country: "🌍 Global", image: heroBasketball },
+  { id: 8, name: "UFC / MMA", category: "UFC · Bellator · Fight Nights", quality: "HD", country: "🌍 Global", image: heroMMA },
+  { id: 9, name: "Tennis", category: "Grand Slam · ATP · WTA", quality: "4K", country: "🌍 Global", image: heroTennis },
+  { id: 10, name: "Boxing", category: "PPV · Title Fights · Live", quality: "HD", country: "🌍 Global", image: heroBoxing },
 ];
 
 const allChannels = [...sportChannels, ...sportChannels]; // duplicate for infinite scroll
