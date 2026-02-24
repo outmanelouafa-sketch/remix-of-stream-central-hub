@@ -8,6 +8,7 @@ import InstallationPage from "./pages/InstallationPage";
 import ChannelListPage from "./pages/ChannelListPage";
 import NewsletterPage from "./pages/NewsletterPage";
 import BlogPage from "./pages/BlogPage";
+import BlogPostPage from "./pages/BlogPostPage";
 import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -62,6 +63,14 @@ const App = () => (
             element={
               <PageLayout>
                 <BlogPage />
+              </PageLayout>
+            }
+          />
+          <Route
+            path="/blog/:slug"
+            element={
+              <PageLayout>
+                <BlogPostPage />
               </PageLayout>
             }
           />
