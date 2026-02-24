@@ -1,18 +1,16 @@
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, Calendar, Clock } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, Tag } from "lucide-react";
 import { useBlogPost } from "@/hooks/useBlogPosts";
 import { Skeleton } from "@/components/ui/skeleton";
 import { format } from "date-fns";
 
 const categoryColors: Record<string, string> = {
-  Guides: "text-primary bg-primary/10 border-primary/20",
   Sports: "text-gold bg-gold/10 border-gold/20",
-  Technology: "text-blue-400 bg-blue-400/10 border-blue-400/20",
-  Reviews: "text-purple-400 bg-purple-400/10 border-purple-400/20",
+  Entertainment: "text-purple-400 bg-purple-400/10 border-purple-400/20",
   General: "text-muted-foreground bg-muted/50 border-border",
 };
 
-/** Simple markdown-ish renderer — handles ##, ###, **, >, -, |tables|, numbered lists */
+/** Simple markdown-ish renderer */
 const renderContent = (content: string) => {
   const lines = content.split("\n");
   const elements: React.ReactNode[] = [];
@@ -21,10 +19,9 @@ const renderContent = (content: string) => {
   while (i < lines.length) {
     const line = lines[i];
 
-    // Table detection
     if (line.includes("|") && lines[i + 1]?.match(/^\|[\s\-|]+\|$/)) {
       const headerCells = line.split("|").filter(Boolean).map((c) => c.trim());
-      i += 2; // skip header + separator
+      i += 2;
       const rows: string[][] = [];
       while (i < lines.length && lines[i].includes("|")) {
         rows.push(lines[i].split("|").filter(Boolean).map((c) => c.trim()));
@@ -36,9 +33,7 @@ const renderContent = (content: string) => {
             <thead>
               <tr className="bg-surface-elevated">
                 {headerCells.map((cell, ci) => (
-                  <th key={ci} className="px-4 py-3 text-left font-semibold text-foreground border-b border-border">
-                    {cell}
-                  </th>
+                  <th key={ci} className="px-4 py-3 text-left font-semibold text-foreground border-b border-border">{cell}</th>
                 ))}
               </tr>
             </thead>
@@ -46,9 +41,7 @@ const renderContent = (content: string) => {
               {rows.map((row, ri) => (
                 <tr key={ri} className="border-b border-border last:border-0 hover:bg-surface-hover transition-colors">
                   {row.map((cell, ci) => (
-                    <td key={ci} className="px-4 py-3 text-muted-foreground">
-                      {cell}
-                    </td>
+                    <td key={ci} className="px-4 py-3 text-muted-foreground">{cell}</td>
                   ))}
                 </tr>
               ))}
@@ -60,23 +53,12 @@ const renderContent = (content: string) => {
     }
 
     if (line.startsWith("### ")) {
-      elements.push(
-        <h3 key={i} className="text-xl font-bold text-foreground mt-8 mb-3">
-          {formatInline(line.slice(4))}
-        </h3>
-      );
+      elements.push(<h3 key={i} className="text-xl font-bold text-foreground mt-8 mb-3">{formatInline(line.slice(4))}</h3>);
     } else if (line.startsWith("## ")) {
-      elements.push(
-        <h2 key={i} className="text-2xl font-extrabold text-foreground mt-10 mb-4">
-          {formatInline(line.slice(3))}
-        </h2>
-      );
+      elements.push(<h2 key={i} className="text-2xl font-extrabold text-foreground mt-10 mb-4">{formatInline(line.slice(3))}</h2>);
     } else if (line.startsWith("> ")) {
       elements.push(
-        <blockquote
-          key={i}
-          className="border-l-4 border-primary pl-4 py-3 my-6 bg-primary/5 rounded-r-lg text-muted-foreground italic"
-        >
+        <blockquote key={i} className="border-l-4 border-primary pl-4 py-3 my-6 bg-primary/5 rounded-r-lg text-muted-foreground italic">
           {formatInline(line.slice(2))}
         </blockquote>
       );
@@ -106,21 +88,15 @@ const renderContent = (content: string) => {
       elements.push(
         <ol key={`ol-${i}`} className="space-y-2 my-4 ml-1 list-decimal list-inside">
           {items.map((item, idx) => (
-            <li key={idx} className="text-muted-foreground">
-              {formatInline(item)}
-            </li>
+            <li key={idx} className="text-muted-foreground">{formatInline(item)}</li>
           ))}
         </ol>
       );
       continue;
     } else if (line.trim() === "") {
-      // skip blank
+      // skip
     } else {
-      elements.push(
-        <p key={i} className="text-muted-foreground leading-relaxed my-3">
-          {formatInline(line)}
-        </p>
-      );
+      elements.push(<p key={i} className="text-muted-foreground leading-relaxed my-3">{formatInline(line)}</p>);
     }
     i++;
   }
@@ -128,16 +104,11 @@ const renderContent = (content: string) => {
   return elements;
 };
 
-/** Bold **text** inline formatter */
 const formatInline = (text: string): React.ReactNode => {
   const parts = text.split(/(\*\*[^*]+\*\*)/g);
   return parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**")) {
-      return (
-        <strong key={i} className="text-foreground font-semibold">
-          {part.slice(2, -2)}
-        </strong>
-      );
+      return <strong key={i} className="text-foreground font-semibold">{part.slice(2, -2)}</strong>;
     }
     return part;
   });
@@ -152,6 +123,7 @@ const BlogPostPage = () => {
       <div className="min-h-screen section-dark pt-24">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-6">
           <Skeleton className="h-8 w-48" />
+          <Skeleton className="h-72 w-full rounded-2xl" />
           <Skeleton className="h-12 w-full" />
           <Skeleton className="h-5 w-60" />
           <Skeleton className="h-64 w-full" />
@@ -185,16 +157,25 @@ const BlogPostPage = () => {
           <ArrowLeft className="w-4 h-4" /> Back to Blog
         </Link>
 
-        {/* Hero emoji */}
-        <div className="h-40 bg-surface-elevated rounded-2xl flex items-center justify-center mb-8 border border-border">
-          <span className="text-8xl">{post.emoji}</span>
-        </div>
+        {/* Hero Image */}
+        {post.image_url ? (
+          <div className="relative h-72 sm:h-96 rounded-2xl overflow-hidden mb-8 border border-border">
+            <img
+              src={post.image_url}
+              alt={post.title}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+          </div>
+        ) : (
+          <div className="h-40 bg-surface-elevated rounded-2xl flex items-center justify-center mb-8 border border-border">
+            <span className="text-8xl">{post.emoji}</span>
+          </div>
+        )}
 
         {/* Meta */}
         <div className="flex flex-wrap items-center gap-3 mb-4">
-          <span
-            className={`text-xs font-bold px-3 py-1 rounded border ${categoryColors[post.category] || categoryColors.General}`}
-          >
+          <span className={`text-xs font-bold px-3 py-1 rounded border ${categoryColors[post.category] || categoryColors.General}`}>
             {post.category}
           </span>
           <div className="flex items-center gap-4 text-xs text-muted-foreground">
@@ -210,7 +191,22 @@ const BlogPostPage = () => {
         </div>
 
         {/* Title */}
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground mb-8 leading-tight">{post.title}</h1>
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground mb-6 leading-tight">{post.title}</h1>
+
+        {/* Tags */}
+        {post.tags && post.tags.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-8">
+            {post.tags.map((tag) => (
+              <span
+                key={tag}
+                className="inline-flex items-center gap-1 text-xs font-medium px-2.5 py-1 rounded-full bg-secondary text-muted-foreground border border-border"
+              >
+                <Tag className="w-3 h-3" />
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
 
         {/* Content */}
         <div className="prose-dark">{renderContent(post.content)}</div>

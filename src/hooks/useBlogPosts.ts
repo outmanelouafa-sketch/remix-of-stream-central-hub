@@ -13,6 +13,8 @@ export interface BlogPost {
   published: boolean;
   created_at: string;
   updated_at: string;
+  image_url: string;
+  tags: string[];
 }
 
 export const useBlogPosts = () => {
@@ -22,6 +24,7 @@ export const useBlogPosts = () => {
       const { data, error } = await supabase
         .from("blog_posts")
         .select("*")
+        .eq("published", true)
         .order("created_at", { ascending: false });
       if (error) throw error;
       return data as BlogPost[];
