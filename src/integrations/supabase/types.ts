@@ -14,7 +14,72 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      pricing_plans: {
+        Row: {
+          badge: string | null
+          channels: string
+          created_at: string
+          devices: string
+          featured: boolean
+          id: string
+          name: string
+          period: string
+          price: string
+          sort_order: number
+          vod: string
+        }
+        Insert: {
+          badge?: string | null
+          channels?: string
+          created_at?: string
+          devices?: string
+          featured?: boolean
+          id?: string
+          name: string
+          period: string
+          price: string
+          sort_order?: number
+          vod?: string
+        }
+        Update: {
+          badge?: string | null
+          channels?: string
+          created_at?: string
+          devices?: string
+          featured?: boolean
+          id?: string
+          name?: string
+          period?: string
+          price?: string
+          sort_order?: number
+          vod?: string
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          email: string
+          id: string
+          telegram_id: string
+          updated_at: string
+          whatsapp_number: string
+        }
+        Insert: {
+          email?: string
+          id?: string
+          telegram_id?: string
+          updated_at?: string
+          whatsapp_number?: string
+        }
+        Update: {
+          email?: string
+          id?: string
+          telegram_id?: string
+          updated_at?: string
+          whatsapp_number?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
