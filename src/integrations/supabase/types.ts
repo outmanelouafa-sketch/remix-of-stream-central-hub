@@ -14,7 +14,123 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      blog_posts: {
+        Row: {
+          category: string
+          content: string
+          created_at: string
+          emoji: string
+          excerpt: string
+          id: string
+          image_url: string
+          published: boolean
+          read_time: string
+          slug: string
+          tags: string[]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          content?: string
+          created_at?: string
+          emoji?: string
+          excerpt?: string
+          id?: string
+          image_url?: string
+          published?: boolean
+          read_time?: string
+          slug: string
+          tags?: string[]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          content?: string
+          created_at?: string
+          emoji?: string
+          excerpt?: string
+          id?: string
+          image_url?: string
+          published?: boolean
+          read_time?: string
+          slug?: string
+          tags?: string[]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      pricing_plans: {
+        Row: {
+          badge: string | null
+          channels: string
+          created_at: string
+          devices: string
+          featured: boolean
+          id: string
+          name: string
+          period: string
+          price: string
+          sort_order: number
+          vod: string
+        }
+        Insert: {
+          badge?: string | null
+          channels?: string
+          created_at?: string
+          devices?: string
+          featured?: boolean
+          id?: string
+          name: string
+          period?: string
+          price: string
+          sort_order?: number
+          vod?: string
+        }
+        Update: {
+          badge?: string | null
+          channels?: string
+          created_at?: string
+          devices?: string
+          featured?: boolean
+          id?: string
+          name?: string
+          period?: string
+          price?: string
+          sort_order?: number
+          vod?: string
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          telegram_id: string
+          updated_at: string
+          whatsapp_number: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string
+          id?: string
+          telegram_id?: string
+          updated_at?: string
+          whatsapp_number?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          telegram_id?: string
+          updated_at?: string
+          whatsapp_number?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
