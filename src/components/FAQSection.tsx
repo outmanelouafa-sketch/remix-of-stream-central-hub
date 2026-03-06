@@ -1,50 +1,46 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Plus, Minus } from "lucide-react";
-
-const faqs = [
-  {
-    question: "What Is IPTV And How Does It Work?",
-    answer:
-      "IPTV (Internet Protocol Television) delivers TV content over the internet instead of traditional cable or satellite. You get live channels, movies, and series streamed directly to your device — Smart TV, phone, tablet, PC, or set-top box — with no dish or cable required.",
-  },
-  {
-    question: "What Payment Methods Do You Accept?",
-    answer:
-      "We accept all major payment methods including credit/debit cards (Visa, Mastercard), PayPal, cryptocurrency (Bitcoin, USDT), and various other local payment options. All transactions are 100% secure and encrypted.",
-  },
-  {
-    question: "How Fast Is My IPTV Subscription Activated?",
-    answer:
-      "Activation is instant! Once your payment is confirmed, your login credentials are sent to your email within minutes. You can start streaming immediately — 24/7, no waiting.",
-  },
-  {
-    question: "Do I Need A Fast Internet Connection?",
-    answer:
-      "For SD content, a 10 Mbps connection is sufficient. For Full HD we recommend 20 Mbps, and for 4K Ultra HD streaming at least 50 Mbps. Most modern broadband or 4G/5G connections work perfectly.",
-  },
-  {
-    question: "Can I Watch IPTV On Multiple Devices At The Same Time?",
-    answer:
-      "Yes! Depending on your plan, you can use 1, 2, or more simultaneous connections. Our Family and Premium plans support multiple screens so everyone in the household can stream at once.",
-  },
-  {
-    question: "What If I'm Not Satisfied?",
-    answer:
-      "We offer a free trial before you commit. If you're not happy with our service after subscribing, contact our support team within 24 hours and we'll work to resolve any issues. Customer satisfaction is our top priority.",
-  },
-  {
-    question: "What Is The Difference Between IPTV And Traditional Cable TV?",
-    answer:
-      "Traditional cable TV is delivered via physical cables and requires a satellite dish or cable box. IPTV uses your internet connection, giving you more channels, on-demand content, no contracts, and the freedom to watch on any device anywhere in the world — at a fraction of the cost.",
-  },
-  {
-    question: "Which Devices Are Compatible With PrimeIPTV?",
-    answer:
-      "PrimeIPTV works on virtually every device: Smart TVs (Samsung, LG, Android TV), Amazon Firestick, Apple TV, Chromecast, smartphones and tablets (iOS & Android), Windows/Mac computers, MAG boxes, and more. We provide full setup guides for all devices.",
-  },
-];
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 const FAQSection = () => {
+  const { data: settings } = useSiteSettings();
+  const whatsappNumber = settings?.whatsapp_number || "1234567890";
+
+  const faqs = useMemo(
+    () => [
+      {
+        question: "Heb ik een VPN nodig om IPTV te gebruiken?",
+        answer:
+          "Nee, je hebt geen VPN nodig om IPTV te kijken. Wij gebruiken geavanceerde oplossingen om blokkades van je provider te omzeilen.",
+      },
+      {
+        question: "Kan ik live programma's opnemen?",
+        answer:
+          "Als je apparaat het ondersteunt, kun je elk programma opnemen en later bekijken wanneer het je uitkomt — zonder extra kosten.",
+      },
+      {
+        question: "Hoe ontvang ik mijn abonnement?",
+        answer: `Levering gaat per e-mail en WhatsApp binnen 4 uur. Heb je vragen? Neem contact met ons op via WhatsApp op +${whatsappNumber}.`,
+      },
+      {
+        question: "Op welke apparaten kan ik kijken?",
+        answer:
+          "De service werkt op verschillende apparaten: Smart TV, Android Box, iPhone/iPad en Android-telefoons en -tablets, Chromecast, Amazon Fire TV en meer.",
+      },
+      {
+        question: "Op hoeveel apparaten kan ik het gebruiken?",
+        answer:
+          "Je kunt je account op meerdere apparaten installeren, maar je kunt tegelijk op één apparaat kijken. Wil je op meer apparaten tegelijk kijken? Neem dan eerst contact met ons op via WhatsApp.",
+      },
+      {
+        question: "Hebben jullie live sport zoals F1, Champions League en meer?",
+        answer:
+          "Zeker! We zenden alle grote live sportevenementen uit: Formule 1, UEFA Champions League, Premier League, La Liga, Serie A, NBA, UFC, tennis Grand Slams, boks-PPV's en meer — allemaal in 8K/4K-kwaliteit zonder bufferen.",
+      },
+    ],
+    [whatsappNumber]
+  );
+
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggle = (idx: number) => {
@@ -60,12 +56,12 @@ const FAQSection = () => {
             FAQ
           </p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground mb-4">
-            Frequently Asked{" "}
-            <span className="text-gradient-red">Questions</span>
+            Veelgestelde{" "}
+            <span className="text-gradient-red">vragen</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Everything you need to know about PrimeIPTV. Can't find the answer?
-            Chat with our support team.
+            Alles wat je moet weten over Best IPTV Deals. Kun je het antwoord niet vinden?
+            Chat dan met ons supportteam.
           </p>
         </div>
 
@@ -121,22 +117,6 @@ const FAQSection = () => {
               </div>
             );
           })}
-        </div>
-
-        {/* Bottom CTA */}
-        <div className="mt-12 text-center p-8 rounded-2xl border border-border bg-surface-elevated">
-          <p className="text-foreground font-semibold mb-1">Still have questions?</p>
-          <p className="text-muted-foreground text-sm mb-5">
-            Our support team is available 24/7 on WhatsApp and Telegram.
-          </p>
-          <a
-            href="https://wa.me/1234567890?text=Hello!%20I%20have%20a%20question%20about%20PrimeIPTV."
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-cta inline-flex items-center gap-2 px-8 py-3 rounded-xl font-semibold text-sm"
-          >
-            Chat With Support
-          </a>
         </div>
       </div>
     </section>

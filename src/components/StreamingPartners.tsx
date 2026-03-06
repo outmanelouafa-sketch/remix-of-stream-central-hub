@@ -20,7 +20,7 @@ const StreamingPartners = () => {
     <section className="py-14 section-elevated overflow-hidden border-y border-border">
       <div className="max-w-7xl mx-auto px-4 mb-8">
         <p className="text-center text-xs font-semibold text-muted-foreground uppercase tracking-[0.2em]">
-          Streaming Partners &amp; Available Networks
+          Streamingpartners &amp; beschikbare netwerken
         </p>
       </div>
 

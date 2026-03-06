@@ -81,16 +81,16 @@ const SportsShowcase = () => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">
-              Sports Channels
+              Sportzenders
             </p>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-foreground">
-              Watch Your Favorite
-              <span className="text-gradient-red"> Sports Live</span>
+              Kijk live naar je
+              <span className="text-gradient-red"> favoriete sport</span>
             </h2>
           </div>
           <div className="flex items-center gap-2 text-muted-foreground text-sm">
             <TrendingUp className="w-4 h-4 text-primary" />
-            <span>Live from top sports networks</span>
+            <span>Live vanaf de grootste sportzenders</span>
           </div>
         </div>
       </div>

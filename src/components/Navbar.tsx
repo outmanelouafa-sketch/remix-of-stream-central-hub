@@ -4,10 +4,8 @@ import { Menu, X, Tv } from "lucide-react";
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "Installation Tutorial", href: "/installation" },
-  { label: "Channel List", href: "/channels" },
-  { label: "Newsletter", href: "/newsletter" },
-  { label: "Blog", href: "/blog" },
+  { label: "Installatiehandleiding", href: "/installation" },
+  { label: "Zenderlijst", href: "/channels" },
 ];
 
 const Navbar = () => {
@@ -41,7 +39,7 @@ const Navbar = () => {
               <Tv className="w-5 h-5 text-primary-foreground" />
             </div>
             <span className="text-xl font-bold text-foreground">
-              Prime<span className="text-primary">IPTV</span>
+              Best<span className="text-primary">IPTV Deals</span>
             </span>
           </Link>
 
@@ -68,7 +66,7 @@ const Navbar = () => {
               to="/#pricing"
               className="btn-cta px-5 py-2.5 rounded-lg text-sm font-semibold"
             >
-              Get Started
+              Start nu
             </Link>
           </div>
 
@@ -104,7 +102,7 @@ const Navbar = () => {
                 to="/#pricing"
                 className="block btn-cta text-center px-4 py-3 rounded-lg text-sm font-semibold"
               >
-                Get Started
+                Start nu
               </Link>
             </div>
           </div>

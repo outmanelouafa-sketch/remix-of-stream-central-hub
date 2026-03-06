@@ -23,8 +23,8 @@ CREATE POLICY "Anyone can read pricing plans"
 CREATE TABLE public.site_settings (
   id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
   whatsapp_number TEXT NOT NULL DEFAULT '1234567890',
-  telegram_id TEXT NOT NULL DEFAULT 'primeiptv',
-  email TEXT NOT NULL DEFAULT 'support@primeiptv.com',
+  telegram_id TEXT NOT NULL DEFAULT 'bestiptvdeals',
+  email TEXT NOT NULL DEFAULT 'support@bestiptvdeals.com',
   updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
 );
 
@@ -42,4 +42,4 @@ INSERT INTO public.pricing_plans (name, price, period, channels, vod, devices, f
 
 -- Insert default contact settings
 INSERT INTO public.site_settings (whatsapp_number, telegram_id, email) VALUES
-  ('1234567890', 'primeiptv', 'support@primeiptv.com');
+  ('1234567890', 'bestiptvdeals', 'support@bestiptvdeals.com');

@@ -8,10 +8,10 @@ import heroBasketball from "@/assets/hero-basketball.jpg";
 import heroMma from "@/assets/hero-mma.jpg";
 
 const slides = [
-  { src: heroBg, label: "🎬 Movies & Series" },
-  { src: heroF1, label: "🏎️ Formula 1" },
-  { src: heroFootball, label: "⚽ Football" },
-  { src: heroBasketball, label: "🏀 Basketball" },
+  { src: heroBg, label: "🎬 Films & Series" },
+  { src: heroF1, label: "🏎️ Formule 1" },
+  { src: heroFootball, label: "⚽ Voetbal" },
+  { src: heroBasketball, label: "🏀 Basketbal" },
   { src: heroMma, label: "🥊 UFC / MMA" },
 ];
 
@@ -84,7 +84,7 @@ const HeroSection = () => {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 bg-primary/20 border border-primary/30 rounded-full px-4 py-1.5 mb-6 animate-fade-in-up">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-primary text-sm font-medium">#1 IPTV Subscription Provider</span>
+            <span className="text-primary text-sm font-medium">#1 IPTV-abonnementsaanbieder</span>
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-tight mb-6 animate-fade-in-up delay-100">
@@ -96,17 +96,17 @@ const HeroSection = () => {
           </h1>
 
           <p className="text-lg sm:text-xl text-muted-foreground mb-8 leading-relaxed animate-fade-in-up delay-200">
-            Access <strong className="text-foreground">17,000+ live channels</strong>, 
-            100,000+ VOD titles, and premium sports coverage. Stream on any device, 
-            anywhere in the world.
+            Krijg toegang tot <strong className="text-foreground">43.000+ live zenders</strong>, 
+            200.000+ VOD-titels en premium sportkanalen. Stream op elk apparaat, 
+            overal ter wereld.
           </p>
 
           {/* Stats */}
           <div className="flex flex-wrap gap-6 mb-10 animate-fade-in-up delay-300">
             {[
-              { value: "17K+", label: "Live Channels" },
-              { value: "100K+", label: "VOD Titles" },
-              { value: "4K", label: "Ultra HD Quality" },
+              { value: "43K+", label: "Live Channels" },
+              { value: "200K", label: "VOD Titles" },
+              { value: "8K/4K", label: "Ultra HD Quality" },
               { value: "99.9%", label: "Uptime" },
             ].map((stat) => (
               <div key={stat.label}>
@@ -123,13 +123,13 @@ const HeroSection = () => {
               className="btn-cta flex items-center gap-2 px-8 py-4 rounded-xl text-base font-semibold shadow-lg shadow-primary/30"
             >
               <Play className="w-5 h-5 fill-current" />
-              Get Started Now
+              Nu starten
             </a>
             <a
               href="#pricing"
               className="flex items-center gap-2 px-8 py-4 rounded-xl text-base font-semibold border border-foreground/30 text-foreground hover:bg-foreground/10 transition-all duration-300"
             >
-              View Plans
+              Bekijk pakketten
               <ChevronRight className="w-5 h-5" />
             </a>
           </div>

@@ -9,11 +9,11 @@ const NewsletterSection = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError("Please enter a valid email address");
+      setError("Vul een geldig e-mailadres in");
       return;
     }
     if (email.length > 255) {
-      setError("Email is too long");
+      setError("E-mailadres is te lang");
       return;
     }
     setError("");
@@ -29,11 +29,11 @@ const NewsletterSection = () => {
         </div>
 
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground mb-4">
-          Stay <span className="text-gradient-red">Updated</span>
+          Blijf <span className="text-gradient-red">op de hoogte</span>
         </h2>
         <p className="text-muted-foreground text-lg mb-10 max-w-2xl mx-auto">
-          Subscribe to our newsletter for exclusive deals, new channel announcements, 
-          and IPTV tips — delivered straight to your inbox.
+          Schrijf je in voor onze nieuwsbrief voor exclusieve deals, nieuwe zenderaankondigingen 
+          en IPTV-tips — rechtstreeks in je inbox.
         </p>
 
         {subscribed ? (
@@ -42,8 +42,8 @@ const NewsletterSection = () => {
               <Mail className="w-4 h-4 text-primary" />
             </div>
             <div className="text-left">
-              <p className="font-bold text-foreground">You're subscribed! 🎉</p>
-              <p className="text-sm text-muted-foreground">Check your inbox for a welcome email.</p>
+              <p className="font-bold text-foreground">Je bent ingeschreven! 🎉</p>
+              <p className="text-sm text-muted-foreground">Controleer je inbox voor een welkomstmail.</p>
             </div>
           </div>
         ) : (
@@ -54,19 +54,19 @@ const NewsletterSection = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 maxLength={255}
-                placeholder="Enter your email address"
+                placeholder="Vul je e-mailadres in"
                 className="flex-1 px-5 py-4 rounded-xl bg-card border border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
               />
               <button
                 type="submit"
                 className="btn-cta px-8 py-4 rounded-xl font-bold whitespace-nowrap shadow-lg shadow-primary/20"
               >
-                Subscribe
+                Inschrijven
               </button>
             </form>
             {error && <p className="text-primary text-sm">{error}</p>}
             <p className="text-muted-foreground text-sm">
-              No spam, ever. Unsubscribe at any time.
+              Geen spam, ooit. Uitschrijven kan op elk moment.
             </p>
           </>
         )}
@@ -74,9 +74,9 @@ const NewsletterSection = () => {
         {/* Benefits */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-12">
           {[
-            { emoji: "🎯", text: "Exclusive subscriber deals" },
-            { emoji: "📺", text: "New channel updates" },
-            { emoji: "💡", text: "Setup tips & guides" },
+            { emoji: "🎯", text: "Exclusieve deals voor abonnees" },
+            { emoji: "📺", text: "Updates over nieuwe zenders" },
+            { emoji: "💡", text: "Installatietips & handleidingen" },
           ].map((b) => (
             <div key={b.text} className="flex items-center gap-2 justify-center text-sm text-muted-foreground">
               <span>{b.emoji}</span>

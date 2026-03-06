@@ -43,7 +43,7 @@ const InstallationPage = () => {
             Installation <span className="text-gradient-red">Tutorial</span>
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Getting started with PrimeIPTV is simple. Follow these easy steps to start streaming in minutes.
+            Getting started with Best IPTV Deals is simple. Follow these easy steps to start streaming in minutes.
           </p>
         </div>
 
