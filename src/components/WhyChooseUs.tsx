@@ -51,7 +51,7 @@ const WhyChooseUs = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">Waarom Best IPTV Deals</p>
+          <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-3">Waarom iptv members</p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-foreground mb-4">
             Alles wat je nodig hebt
             <span className="text-gradient-red"> voor perfect streamen</span>

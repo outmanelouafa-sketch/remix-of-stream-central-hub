@@ -2,10 +2,15 @@ import { useMemo, useState } from "react";
 import { Search, ChevronRight } from "lucide-react";
 import { parseChannelContent } from "@/lib/channelParser";
 import channelContRaw from "@/assets/channel-cont.txt?raw";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 const PAGE_SIZE = 48;
+const TRIAL_MESSAGE = "Hi, I would like to try the free 24h trial.";
 
 const ChannelListPage = () => {
+  const { data: settings } = useSiteSettings();
+  const whatsappUrl = `https://wa.me/${settings?.whatsapp_number || "1234567890"}?text=${encodeURIComponent(TRIAL_MESSAGE)}`;
+
   const { channels, regions } = useMemo(
     () => parseChannelContent(channelContRaw),
     []
@@ -144,10 +149,12 @@ const ChannelListPage = () => {
             Klaar om toegang te krijgen tot alle zenders?
           </p>
           <a
-            href="/#pricing"
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className="btn-cta inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold shadow-lg shadow-primary/20"
           >
-            Abonneer nu
+            Try free trial 24h now
           </a>
         </div>
       </div>

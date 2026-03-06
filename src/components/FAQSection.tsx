@@ -60,7 +60,7 @@ const FAQSection = () => {
             <span className="text-gradient-red">vragen</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Alles wat je moet weten over Best IPTV Deals. Kun je het antwoord niet vinden?
+            Alles wat je moet weten over iptv members. Kun je het antwoord niet vinden?
             Chat dan met ons supportteam.
           </p>
         </div>

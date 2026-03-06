@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Tv, MessageCircle, Send, Mail, ChevronRight } from "lucide-react";
+import { MessageCircle, ChevronRight } from "lucide-react";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 const Footer = () => {
@@ -24,15 +24,10 @@ const Footer = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           <div className="lg:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center">
-                <Tv className="w-5 h-5 text-primary-foreground" />
-              </div>
-              <span className="text-xl font-bold text-foreground">
-                Best<span className="text-primary">IPTV Deals</span>
-              </span>
+              <span className="text-xl font-bold text-foreground">iptv members</span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-              Premium IPTV-deals met 17.000+ zenders, 100.000+ VOD-titels en 24/7 premium ondersteuning.
+              Premium IPTV met 43.000+ zenders, 200.000+ VOD-titels en 24/7 premium ondersteuning.
             </p>
             <div className="flex gap-3">
               <a href={whatsappUrl} target="_blank" rel="noopener noreferrer"
@@ -71,7 +66,7 @@ const Footer = () => {
 
       <div className="border-t border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} Best IPTV Deals. All rights reserved.</p>
+          <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} iptv members. All rights reserved.</p>
           <div className="flex items-center gap-4 text-sm text-muted-foreground" />
         </div>
       </div>

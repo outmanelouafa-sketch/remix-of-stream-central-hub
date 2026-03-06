@@ -1,6 +1,10 @@
 import { Check, Star, Crown } from "lucide-react";
 import { usePricingPlans } from "@/hooks/usePricingPlans";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 import { Skeleton } from "@/components/ui/skeleton";
+
+const getPlanMessage = (name: string, price: string, period: string) =>
+  `Hi, I would like to try the free 24h trial. I'm interested in the ${name} plan (${price} ${period}).`;
 
 const features = [
   "43.000+ live zenders",
@@ -15,6 +19,8 @@ const features = [
 
 const PricingSection = () => {
   const { data: plans = [], isLoading } = usePricingPlans();
+  const { data: settings } = useSiteSettings();
+  const baseNumber = settings?.whatsapp_number || "1234567890";
 
   return (
     <section id="pricing" className="py-20 section-elevated">
@@ -83,15 +89,18 @@ const PricingSection = () => {
                     ))}
                   </div>
 
-                  <button
-                    className={`w-full py-3.5 rounded-xl font-bold text-sm transition-all duration-300 ${
+                  <a
+                    href={`https://wa.me/${baseNumber}?text=${encodeURIComponent(getPlanMessage(plan.name, plan.price, plan.period))}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`w-full py-3.5 rounded-xl font-bold text-sm transition-all duration-300 flex items-center justify-center ${
                       plan.featured
                         ? "btn-cta shadow-lg shadow-primary/30"
                         : "bg-secondary text-foreground hover:bg-secondary/80 border border-border hover:border-primary/30"
                     }`}
                   >
-                    BESTEL NU
-                  </button>
+                    Try free trial 24h now
+                  </a>
                 </div>
               ))}
         </div>

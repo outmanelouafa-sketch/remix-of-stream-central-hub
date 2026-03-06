@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { TrendingUp } from "lucide-react";
 import heroFootball from "../assets/hero-football.jpg";
 import heroF1 from "../assets/hero-f1.jpg";
@@ -35,44 +35,18 @@ const sportChannels = [
 
 const allChannels = [...sportChannels, ...sportChannels]; // duplicate for infinite scroll
 
+const nederlandSports = [
+  { name: "Formula 1", desc: "Elke race live in 4K/8K", icon: "🏎️" },
+  { name: "Eredivisie", desc: "Championnat des Pays-Bas de football · alle wedstrijden live", icon: "⚽" },
+];
+
 const SportsShowcase = () => {
   const [loading, setLoading] = useState(true);
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const animationRef = useRef<number>();
-  const isPausedRef = useRef(false);
 
   useEffect(() => {
-    // Simulate loading
     const timer = setTimeout(() => setLoading(false), 800);
     return () => clearTimeout(timer);
   }, []);
-
-  // Auto-scroll animation
-  useEffect(() => {
-    if (loading) return;
-    const container = scrollRef.current;
-    if (!container) return;
-
-    let position = 0;
-    const speed = 0.8;
-
-    const animate = () => {
-      if (!isPausedRef.current && container) {
-        position += speed;
-        // Reset when we've scrolled half the content (we duplicate cards)
-        if (position >= container.scrollWidth / 2) {
-          position = 0;
-        }
-        container.scrollLeft = position;
-      }
-      animationRef.current = requestAnimationFrame(animate);
-    };
-
-    animationRef.current = requestAnimationFrame(animate);
-    return () => {
-      if (animationRef.current) cancelAnimationFrame(animationRef.current);
-    };
-  }, [loading]);
 
   return (
     <section id="sports" className="py-20 bg-background overflow-hidden">
@@ -95,6 +69,30 @@ const SportsShowcase = () => {
         </div>
       </div>
 
+      {/* Live voor Nederland — wat je live kunt kijken */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
+        <p className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">
+          🇳🇱 Live voor Nederland
+        </p>
+        <p className="text-muted-foreground text-sm mb-4 max-w-2xl">
+          Formula 1 en Eredivisie (Nederlands voetbal) — live in 4K/8K.
+        </p>
+        <div className="flex flex-wrap gap-3">
+          {nederlandSports.map((s) => (
+            <div
+              key={s.name}
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-surface-elevated border border-border/50 hover:border-primary/40 hover:bg-surface-elevated/80 transition-colors"
+            >
+              <span className="text-lg" aria-hidden>{s.icon}</span>
+              <div>
+                <span className="font-semibold text-foreground text-sm block">{s.name}</span>
+                <span className="text-xs text-muted-foreground">{s.desc}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Scrolling Row */}
       {loading ? (
         <div className="flex gap-4 px-8 overflow-hidden">
@@ -106,13 +104,8 @@ const SportsShowcase = () => {
           ))}
         </div>
       ) : (
-        <div
-          ref={scrollRef}
-          className="flex gap-4 overflow-x-hidden cursor-pointer select-none px-8"
-          style={{ scrollBehavior: "auto" }}
-          onMouseEnter={() => (isPausedRef.current = true)}
-          onMouseLeave={() => (isPausedRef.current = false)}
-        >
+        <div className="relative marquee-container overflow-hidden">
+          <div className="flex animate-marquee gap-4 px-4 sm:px-6 lg:px-8 whitespace-nowrap py-2">
           {allChannels.map((channel, idx) => (
             <div
               key={`${channel.id}-${idx}`}
@@ -153,6 +146,7 @@ const SportsShowcase = () => {
               </div>
             </div>
           ))}
+          </div>
         </div>
       )}
 

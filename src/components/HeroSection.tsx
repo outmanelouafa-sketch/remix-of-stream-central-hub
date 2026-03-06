@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
-import { Play, ChevronRight } from "lucide-react";
 import { useState, useEffect } from "react";
+import { MessageCircle, ChevronRight } from "lucide-react";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 import heroBg from "@/assets/hero-bg.jpg";
 import heroF1 from "@/assets/hero-f1.jpg";
 import heroFootball from "@/assets/hero-football.jpg";
@@ -15,7 +15,13 @@ const slides = [
   { src: heroMma, label: "🥊 UFC / MMA" },
 ];
 
+const TRIAL_MESSAGE = "Hi, I would like to try the free 24h trial.";
+
 const HeroSection = () => {
+  const { data: settings } = useSiteSettings();
+  const whatsappNumber = settings?.whatsapp_number || "1234567890";
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(TRIAL_MESSAGE)}`;
+
   const [current, setCurrent] = useState(0);
   const [prev, setPrev] = useState<number | null>(null);
   const [fading, setFading] = useState(false);
@@ -96,9 +102,7 @@ const HeroSection = () => {
           </h1>
 
           <p className="text-lg sm:text-xl text-muted-foreground mb-8 leading-relaxed animate-fade-in-up delay-200">
-            Krijg toegang tot <strong className="text-foreground">43.000+ live zenders</strong>, 
-            200.000+ VOD-titels en premium sportkanalen. Stream op elk apparaat, 
-            overal ter wereld.
+            Access 43,000+ live channels, 200,000+ VOD titles, and premium sports coverage. Stream on any device, anywhere in the world.
           </p>
 
           {/* Stats */}
@@ -119,17 +123,19 @@ const HeroSection = () => {
           {/* CTA Buttons */}
           <div className="flex flex-wrap gap-4 animate-fade-in-up delay-400">
             <a
-              href="#pricing"
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-cta flex items-center gap-2 px-8 py-4 rounded-xl text-base font-semibold shadow-lg shadow-primary/30"
             >
-              <Play className="w-5 h-5 fill-current" />
-              Nu starten
+              <MessageCircle className="w-5 h-5 fill-current" />
+              Try free trial 24h now
             </a>
             <a
               href="#pricing"
               className="flex items-center gap-2 px-8 py-4 rounded-xl text-base font-semibold border border-foreground/30 text-foreground hover:bg-foreground/10 transition-all duration-300"
             >
-              Bekijk pakketten
+              check the plan
               <ChevronRight className="w-5 h-5" />
             </a>
           </div>

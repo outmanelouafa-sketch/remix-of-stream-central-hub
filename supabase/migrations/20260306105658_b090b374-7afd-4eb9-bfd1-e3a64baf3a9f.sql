@@ -1,7 +1,7 @@
 
 -- Seed site settings
 INSERT INTO public.site_settings (whatsapp_number, telegram_id, email)
-VALUES ('1234567890', 'bestiptvdeals', 'support@bestiptvdeals.com');
+VALUES ('1234567890', 'iptvmembers', 'support@iptvmembers.com');
 
 -- Seed pricing plans
 INSERT INTO public.pricing_plans (name, price, period, channels, vod, devices, featured, badge, sort_order) VALUES

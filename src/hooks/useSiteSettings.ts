@@ -9,8 +9,8 @@ export interface SiteSettings {
 
 const defaults: SiteSettings = {
   whatsapp_number: "1234567890",
-  telegram_id: "bestiptvdeals",
-  email: "support@bestiptvdeals.com",
+  telegram_id: "iptvmembers",
+  email: "support@iptvmembers.com",
 };
 
 export const useSiteSettings = () => {

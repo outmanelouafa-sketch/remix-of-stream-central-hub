@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Tv } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -8,7 +9,12 @@ const navLinks = [
   { label: "Zenderlijst", href: "/channels" },
 ];
 
+const TRIAL_MESSAGE = "Hi, I would like to try the free 24h trial.";
+
 const Navbar = () => {
+  const { data: settings } = useSiteSettings();
+  const whatsappUrl = `https://wa.me/${settings?.whatsapp_number || "1234567890"}?text=${encodeURIComponent(TRIAL_MESSAGE)}`;
+
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
@@ -35,12 +41,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center group-hover:shadow-lg group-hover:shadow-primary/40 transition-all duration-300">
-              <Tv className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <span className="text-xl font-bold text-foreground">
-              Best<span className="text-primary">IPTV Deals</span>
-            </span>
+            <span className="text-xl font-bold text-foreground">iptv members</span>
           </Link>
 
           {/* Desktop nav */}
@@ -62,12 +63,14 @@ const Navbar = () => {
 
           {/* CTA */}
           <div className="hidden lg:flex items-center gap-3">
-            <Link
-              to="/#pricing"
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-cta px-5 py-2.5 rounded-lg text-sm font-semibold"
             >
-              Start nu
-            </Link>
+              Try free trial 24h now
+            </a>
           </div>
 
           {/* Mobile menu button */}
@@ -98,12 +101,14 @@ const Navbar = () => {
               </Link>
             ))}
             <div className="pt-2">
-              <Link
-                to="/#pricing"
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="block btn-cta text-center px-4 py-3 rounded-lg text-sm font-semibold"
               >
-                Start nu
-              </Link>
+                Try free trial 24h now
+              </a>
             </div>
           </div>
         </div>

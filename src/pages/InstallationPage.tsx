@@ -1,4 +1,5 @@
 import { Smartphone, Monitor, Tv, Apple, Chrome, Settings2 } from "lucide-react";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 const devices = [
   { icon: Tv, name: "Smart TV", desc: "Samsung, LG, Sony" },
@@ -32,7 +33,12 @@ const steps = [
   },
 ];
 
+const TRIAL_MESSAGE = "Hi, I would like to try the free 24h trial.";
+
 const InstallationPage = () => {
+  const { data: settings } = useSiteSettings();
+  const whatsappUrl = `https://wa.me/${settings?.whatsapp_number || "1234567890"}?text=${encodeURIComponent(TRIAL_MESSAGE)}`;
+
   return (
     <div className="min-h-screen section-dark pt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -43,7 +49,7 @@ const InstallationPage = () => {
             Installation <span className="text-gradient-red">Tutorial</span>
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Getting started with Best IPTV Deals is simple. Follow these easy steps to start streaming in minutes.
+            Aan de slag met iptv members is eenvoudig. Volg deze stappen om binnen enkele minuten te streamen.
           </p>
         </div>
 
@@ -86,8 +92,8 @@ const InstallationPage = () => {
 
         {/* CTA */}
         <div className="text-center">
-          <a href="/#pricing" className="btn-cta inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold shadow-lg shadow-primary/20">
-            Subscribe & Get Access
+          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn-cta inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold shadow-lg shadow-primary/20">
+            Try free trial 24h now
           </a>
         </div>
       </div>

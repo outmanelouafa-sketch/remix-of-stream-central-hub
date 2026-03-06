@@ -1,8 +1,10 @@
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 
+const TRIAL_MESSAGE = "Hi, I would like to try the free 24h trial.";
+
 const WhatsAppButton = () => {
   const { data: settings } = useSiteSettings();
-  const whatsappUrl = `https://wa.me/${settings?.whatsapp_number || "1234567890"}?text=Hallo!%20Ik%20ben%20ge%C3%AFnteresseerd%20in%20jullie%20IPTV-abonnement.`;
+  const whatsappUrl = `https://wa.me/${settings?.whatsapp_number || "1234567890"}?text=${encodeURIComponent(TRIAL_MESSAGE)}`;
 
   return (
     <a

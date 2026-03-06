@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from "react";
-import { TrendingUp, Play } from "lucide-react";
+import { useState, useEffect } from "react";
+import { TrendingUp } from "lucide-react";
 
 interface TVShow {
   id: number;
@@ -14,9 +14,6 @@ interface TVShow {
 const ContentShowcase = () => {
   const [shows, setShows] = useState<TVShow[]>([]);
   const [loading, setLoading] = useState(true);
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const animationRef = useRef<number>();
-  const isPausedRef = useRef(false);
 
   useEffect(() => {
     const fetchShows = async () => {
@@ -61,36 +58,7 @@ const ContentShowcase = () => {
     fetchShows();
   }, []);
 
-
-
-  // Auto-scroll animation
-  useEffect(() => {
-    if (shows.length === 0) return;
-    const container = scrollRef.current;
-    if (!container) return;
-
-    let position = 0;
-    const speed = 0.6;
-
-    const animate = () => {
-      if (!isPausedRef.current && container) {
-        position += speed;
-        // Reset when we've scrolled half the content (we duplicate cards)
-        if (position >= container.scrollWidth / 2) {
-          position = 0;
-        }
-        container.scrollLeft = position;
-      }
-      animationRef.current = requestAnimationFrame(animate);
-    };
-
-    animationRef.current = requestAnimationFrame(animate);
-    return () => {
-      if (animationRef.current) cancelAnimationFrame(animationRef.current);
-    };
-  }, [shows]);
-
-  const displayShows = [...shows, ...shows]; // duplicate for infinite scroll effect
+  const displayShows = [...shows, ...shows]; // duplicate for seamless marquee loop
 
   return (
     <section id="content" className="py-20 bg-background overflow-hidden">
@@ -124,13 +92,8 @@ const ContentShowcase = () => {
           ))}
         </div>
       ) : (
-        <div
-          ref={scrollRef}
-          className="flex gap-4 overflow-x-hidden cursor-pointer select-none"
-          style={{ scrollBehavior: "auto" }}
-          onMouseEnter={() => (isPausedRef.current = true)}
-          onMouseLeave={() => (isPausedRef.current = false)}
-        >
+        <div className="relative marquee-container overflow-hidden">
+          <div className="flex animate-marquee gap-4 px-4 sm:px-6 lg:px-8 whitespace-nowrap py-2">
           {displayShows.map((show, idx) => (
             <div
               key={`${show.id}-${idx}`}
@@ -175,6 +138,7 @@ const ContentShowcase = () => {
               </div>
             </div>
           ))}
+          </div>
         </div>
       )}
 
