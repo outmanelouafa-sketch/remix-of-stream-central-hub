@@ -14,14 +14,56 @@ export type Database = {
   }
   public: {
     Tables: {
+      active_sessions: {
+        Row: {
+          country: string | null
+          id: string
+          ip_address: string
+          last_seen: string
+          page: string
+          referrer: string | null
+          session_id: string
+          started_at: string
+          timezone: string | null
+          user_agent: string
+          visitor_id: string | null
+        }
+        Insert: {
+          country?: string | null
+          id?: string
+          ip_address?: string
+          last_seen?: string
+          page?: string
+          referrer?: string | null
+          session_id: string
+          started_at?: string
+          timezone?: string | null
+          user_agent?: string
+          visitor_id?: string | null
+        }
+        Update: {
+          country?: string | null
+          id?: string
+          ip_address?: string
+          last_seen?: string
+          page?: string
+          referrer?: string | null
+          session_id?: string
+          started_at?: string
+          timezone?: string | null
+          user_agent?: string
+          visitor_id?: string | null
+        }
+        Relationships: []
+      }
       blog_posts: {
         Row: {
           category: string
           content: string
           created_at: string
-          emoji: string
           excerpt: string
           id: string
+          image_url: string
           published: boolean
           read_time: string
           slug: string
@@ -32,9 +74,9 @@ export type Database = {
           category?: string
           content?: string
           created_at?: string
-          emoji?: string
           excerpt?: string
           id?: string
+          image_url?: string
           published?: boolean
           read_time?: string
           slug: string
@@ -45,9 +87,9 @@ export type Database = {
           category?: string
           content?: string
           created_at?: string
-          emoji?: string
           excerpt?: string
           id?: string
+          image_url?: string
           published?: boolean
           read_time?: string
           slug?: string
@@ -98,6 +140,54 @@ export type Database = {
         }
         Relationships: []
       }
+      site_events: {
+        Row: {
+          country: string | null
+          created_at: string
+          event: string
+          id: string
+          ip_address: string
+          local_time: string | null
+          meta: Json | null
+          page: string
+          referrer: string | null
+          session_id: string | null
+          timezone: string | null
+          user_agent: string
+          visitor_id: string | null
+        }
+        Insert: {
+          country?: string | null
+          created_at?: string
+          event: string
+          id?: string
+          ip_address?: string
+          local_time?: string | null
+          meta?: Json | null
+          page?: string
+          referrer?: string | null
+          session_id?: string | null
+          timezone?: string | null
+          user_agent?: string
+          visitor_id?: string | null
+        }
+        Update: {
+          country?: string | null
+          created_at?: string
+          event?: string
+          id?: string
+          ip_address?: string
+          local_time?: string | null
+          meta?: Json | null
+          page?: string
+          referrer?: string | null
+          session_id?: string | null
+          timezone?: string | null
+          user_agent?: string
+          visitor_id?: string | null
+        }
+        Relationships: []
+      }
       site_settings: {
         Row: {
           email: string
@@ -122,12 +212,65 @@ export type Database = {
         }
         Relationships: []
       }
+      site_visits: {
+        Row: {
+          country: string | null
+          created_at: string
+          id: string
+          ip_address: string
+          local_time: string | null
+          page: string
+          referrer: string | null
+          screen: Json | null
+          session_id: string | null
+          timezone: string | null
+          user_agent: string
+          visitor_id: string | null
+        }
+        Insert: {
+          country?: string | null
+          created_at?: string
+          id?: string
+          ip_address?: string
+          local_time?: string | null
+          page?: string
+          referrer?: string | null
+          screen?: Json | null
+          session_id?: string | null
+          timezone?: string | null
+          user_agent?: string
+          visitor_id?: string | null
+        }
+        Update: {
+          country?: string | null
+          created_at?: string
+          id?: string
+          ip_address?: string
+          local_time?: string | null
+          page?: string
+          referrer?: string | null
+          screen?: Json | null
+          session_id?: string | null
+          timezone?: string | null
+          user_agent?: string
+          visitor_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      count_unique_visitors: { Args: { since?: string }; Returns: number }
+      get_visits_chart_data: {
+        Args: { days_back?: number }
+        Returns: {
+          total_visits: number
+          unique_visitors: number
+          visit_date: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
