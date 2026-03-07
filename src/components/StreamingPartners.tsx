@@ -1,13 +1,4 @@
-const featuredPartners = [
-  { name: "Videoland", domain: "videoland.com", hoverColor: "#E50914", hoverBg: "rgba(229,9,20,0.12)" },
-  { name: "Ziggo", domain: "ziggo.nl", hoverColor: "#E31837", hoverBg: "rgba(227,24,55,0.12)" },
-  { name: "Viaplay", domain: "viaplay.com", hoverColor: "#00D4AA", hoverBg: "rgba(0,212,170,0.12)" },
-  { name: "ESPN", domain: "espn.com", hoverColor: "#FF0000", hoverBg: "rgba(255,0,0,0.12)" },
-  { name: "Hulu", domain: "hulu.com", hoverColor: "#1CE783", hoverBg: "rgba(28,231,131,0.10)" },
-  { name: "HBO Max", domain: "hbomax.com", hoverColor: "#B537F2", hoverBg: "rgba(181,55,242,0.12)" },
-];
-
-const otherPartners = [
+const partners = [
   { name: "DAZN", domain: "dazn.com", hoverColor: "#00E5FF", hoverBg: "rgba(0,229,255,0.10)" },
   { name: "SKY Sports", domain: "skysports.com", hoverColor: "#00A6E0", hoverBg: "rgba(0,166,224,0.12)" },
   { name: "beIN Sports", domain: "beinsports.com", hoverColor: "#8B0000", hoverBg: "rgba(139,0,0,0.15)" },
@@ -19,21 +10,12 @@ const otherPartners = [
   { name: "BBC", domain: "bbc.com", hoverColor: "#BB1919", hoverBg: "rgba(187,25,25,0.12)" },
 ];
 
-const allPartners = [...featuredPartners, ...otherPartners, ...otherPartners];
+const allPartners = [...partners, ...partners];
 
-const PartnerCard = ({
-  partner,
-  size = "default",
-}: {
-  partner: (typeof featuredPartners)[0];
-  size?: "featured" | "default";
-}) => {
-  const isFeatured = size === "featured";
+const PartnerCard = ({ partner }: { partner: (typeof partners)[0] }) => {
   return (
     <div
-      className={`group/card flex items-center justify-center rounded-2xl border border-border/50 transition-all duration-300 cursor-default flex-shrink-0 bg-surface-elevated ${
-        isFeatured ? "min-w-[180px] h-[88px] px-8" : "min-w-[160px] h-[72px] px-6"
-      }`}
+      className="group/card flex items-center justify-center min-w-[160px] h-[72px] px-6 rounded-2xl border border-border/50 transition-all duration-300 cursor-default flex-shrink-0 bg-surface-elevated"
       style={{
         ["--hover-color" as string]: partner.hoverColor,
         ["--hover-bg" as string]: partner.hoverBg,
@@ -56,14 +38,12 @@ const PartnerCard = ({
       <img
         src={`https://logo.clearbit.com/${partner.domain}`}
         alt={partner.name}
-        className={`object-contain transition-all duration-300 filter group-hover/card:brightness-110 ${
-          isFeatured ? "h-10" : "h-8"
-        }`}
+        className="h-8 object-contain transition-all duration-300 filter group-hover/card:brightness-110"
         onError={(e) => {
           const img = e.target as HTMLImageElement;
           const parent = img.parentElement;
           if (parent) {
-            parent.innerHTML = `<span class="logo-text font-black text-muted-foreground ${isFeatured ? "text-xl" : "text-lg"}">${partner.name}</span>`;
+            parent.innerHTML = `<span class="logo-text font-black text-muted-foreground text-lg">${partner.name}</span>`;
           }
         }}
       />
@@ -80,24 +60,6 @@ const StreamingPartners = () => {
         </p>
       </div>
 
-      {/* Featured: horizontal row; on mobile, auto-scrolling marquee */}
-      <div className="mb-10">
-        {/* Mobile: horizontal auto-scroll marquee */}
-        <div className="relative md:hidden overflow-hidden">
-          <div className="flex animate-marquee whitespace-nowrap gap-4 py-2">
-            {[...featuredPartners, ...featuredPartners].map((partner, i) => (
-              <PartnerCard key={`featured-marquee-${i}`} partner={partner} size="featured" />
-            ))}
-          </div>
-        </div>
-        {/* Desktop: single horizontal row, centered */}
-        <div className="hidden md:flex flex-nowrap items-center justify-center gap-4 sm:gap-6 px-4">
-          {featuredPartners.map((partner, i) => (
-            <PartnerCard key={`featured-${i}`} partner={partner} size="featured" />
-          ))}
-        </div>
-      </div>
-
       {/* Marquee — pauses on hover */}
       <div className="relative marquee-container">
         {/* Edge fades */}
@@ -106,7 +68,7 @@ const StreamingPartners = () => {
 
         <div className="flex animate-marquee whitespace-nowrap gap-4 px-4">
           {allPartners.map((partner, i) => (
-            <PartnerCard key={i} partner={partner} size="default" />
+            <PartnerCard key={i} partner={partner} />
           ))}
         </div>
       </div>
